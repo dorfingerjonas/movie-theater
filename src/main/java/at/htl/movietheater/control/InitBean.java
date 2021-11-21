@@ -2,6 +2,7 @@ package at.htl.movietheater.control;
 
 import at.htl.movietheater.entity.Genre;
 import at.htl.movietheater.entity.Movie;
+import at.htl.movietheater.entity.Show;
 import at.htl.movietheater.entity.Theater;
 import io.quarkus.runtime.StartupEvent;
 
@@ -23,14 +24,15 @@ public class InitBean {
     @Inject
     TheaterRepository theaterRepository;
 
+    @Inject
+    ShowRepository showRepository;
+
     public void onStart(@Observes StartupEvent event) {
         init();
     }
 
     private void init() {
-        List<String> lines = readFile("src/main/resources/movies.csv");
-
-        lines
+        readFile("src/main/resources/movies.csv")
             .stream()
             .skip(1)
             .forEach(line -> {
@@ -45,15 +47,28 @@ public class InitBean {
                 );
             });
 
-        lines = readFile("src/main/resources/theaters.csv");
-
-        lines
+        readFile("src/main/resources/theaters.csv")
             .stream()
             .skip(1)
             .forEach(line -> {
                 String[] parts = line.split(";");
 
                 theaterRepository.save(new Theater(parts[0], Integer.parseInt(parts[1])));
+            });
+
+        readFile("src/main/resources/shows.csv")
+            .stream()
+            .skip(1)
+            .forEach(line -> {
+                String[] parts = line.split(";");
+
+                showRepository.save(
+                    new Show(
+                        movieRepository.findByTitle(parts[0]),
+                        theaterRepository.findByName(parts[1]),
+                        null,
+                        null)
+                );
             });
     }
 
