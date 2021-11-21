@@ -41,4 +41,7 @@ public class ShowRepository {
         }
     }
 
+    public Show findById(long id) {
+        return em.find(Show.class, id);
+    }
 }
