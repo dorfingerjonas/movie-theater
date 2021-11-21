@@ -2,6 +2,7 @@ package at.htl.movietheater.control;
 
 import at.htl.movietheater.entity.Genre;
 import at.htl.movietheater.entity.Movie;
+import at.htl.movietheater.entity.Theater;
 import io.quarkus.runtime.StartupEvent;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -18,6 +19,9 @@ public class InitBean {
 
     @Inject
     MovieRepository movieRepository;
+
+    @Inject
+    TheaterRepository theaterRepository;
 
     public void onStart(@Observes StartupEvent event) {
         init();
@@ -39,6 +43,17 @@ public class InitBean {
                         Genre.valueOf(parts[2].toUpperCase()),
                         Integer.parseInt(parts[3]))
                 );
+            });
+
+        lines = readFile("src/main/resources/theaters.csv");
+
+        lines
+            .stream()
+            .skip(1)
+            .forEach(line -> {
+                String[] parts = line.split(";");
+
+                theaterRepository.save(new Theater(parts[0], Integer.parseInt(parts[1])));
             });
     }
 
