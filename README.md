@@ -2,17 +2,14 @@
 
 > exam exercise by Jonas Dorfinger
 
-
-
 [TOC]
 
-## Introdcution
+## Introduction
 
 You are going to implement a simple movie-theater program management tool.
 
-This is an advanced exercise, it includes all learned topics (except writing unit tests), if you complete this project, you are very well prepared for you exam! If not, don't worry, you are still able to pass the exam.
-
- 
+This is an advanced exercise, it includes all learned topics (except writing unit tests), if you complete this project,
+you are very well-prepared for your exam! If not, don't worry, you are still able to pass the exam.
 
 ## What you'll have to use
 
@@ -25,31 +22,24 @@ This is an advanced exercise, it includes all learned topics (except writing uni
 - NamedQueries
 - JsonValue
 
-
-
 ## Step 1: Create Project
 
 Acquire your ready-to-go project, using [this link](https://github.com/dorfingerjonas/movie-theater-template/generate).
 
-There are two `.sh` files in you project root directory, use them to create and start your derby db. Afterwards create your database locally in IntelliJ.
+There are two `.sh` files in your project root directory, use them to create and start your derby db. Afterward, create
+your database locally in IntelliJ.
 
 If this all works fine for you, start your project for the very first time.
 
-Now, you can read my description mindfully
+Now, you can read my description carefully.
 
-
-
-**Important:** Do not forgot to commit regularly!
-
-
+**Important:** Do not forget to commit regularly!
 
 ## Step 2: CLD and ERD
 
 ### CLD
 
 <img src="./images/cld.png" alt="cld" style="zoom:33%;" />
-
-
 
 ### ERD
 
@@ -77,7 +67,7 @@ this one has already been done for you
 ### Show
 
 - the table should be called `MT_SHOW`
-- use a custom sequence called `showSeq` and with an initialValue off 1000 to generate an id
+- use a custom sequence called `showSeq` and with an initialValue of 1000 to generate an id
 - the required column names are shown in the ERD.
 - add the required Annotations to the columns
 
@@ -85,7 +75,7 @@ _hint: You may need @ManyToOne and @JoinColumn_
 
 ## Step 4: Repositories
 
-The `InitBean.java` has been done for you, read it carefully and try to understand what the code actually does!
+The `InitBean.java` has been done for you, read it carefully and try to understand what the code does!
 
 ### MovieRepository
 
@@ -95,7 +85,7 @@ The `InitBean.java` has been done for you, read it carefully and try to understa
 
 - findByTitle()
 
-  - implement a NamedQuery in `Movie.java` named `Movie.findByTitle`
+    - implement a NamedQuery in `Movie.java` named `Movie.findByTitle`
 
   _hint: you may need a TypedQuery_
 
@@ -105,7 +95,7 @@ The `InitBean.java` has been done for you, read it carefully and try to understa
 
 - findByName()
 
-  - implement a NamedQuery in `Theater.java` named `Theater.findByName`
+    - implement a NamedQuery in `Theater.java` named `Theater.findByName`
 
   _hint: you may need a TypedQuery_
 
@@ -115,25 +105,26 @@ The `InitBean.java` has been done for you, read it carefully and try to understa
 
 - findLastShow()
 
-  - implement a NamedQuery in `Show.java` named `Show.findLastShow`
+    - implement a NamedQuery in `Show.java` named `Show.findLastShow`
 
   _hint: you may need a TypedQuery_
 
-  _hint: you can set the amount of max results of an query_
+  _hint: you can set the amount of max results of a query_
 
 - save()
 
-  - at first, merge the show object
+    - first if statement, check if the `prevShow` is null, if so, set the `prevShow` with the return value
+      of `findLastShow()`
 
-  - first if statement, check if the `prevShow` is null, if so, set the `prevShow` with the return value of `findLastShow()`
+    - merge the show object and store the return value in the show variable again
 
-  - second if statement, if the `prevShow` is not null, set the `nextShow` of the `prevShow` to the `show`
+    - second if statement, if the `prevShow` is not null, set the `nextShow` of the `prevShow` to the `show`
 
-    _hint: `show.getPrevShow().setNextShow(show);`_
+      _hint: `show.getPrevShow().setNextShow(show);`_
 
-  - return the show object
+    - return the show object
 
-  _hint: make sure, the 2 if statements are indepented from each other (no if else-if)_
+  _hint: make sure, the 2 if statements are independent of each other (no if else-if)_
 
 ## Step 5: Endpoints
 
@@ -145,15 +136,17 @@ make sure, the now implemented endpoints are available under the `/show` path
 
 use the appropriate http method (GET, POST, DELETE or PUT)
 
-the first param is a `JsonValue`, which can be either an JsonArray, JsonObject, ... .
+the first param is a `JsonValue`, which can be either a JsonArray, JsonObject, ...
 
-Implement an algorithm to support both, JsonArrays and JsonObjects, all other types can be ignored. The algorithm should be able to save single objects and all elements of an array to the database. 
+Implement an algorithm to support both, JsonArrays and JsonObjects, all other types can be ignored. The algorithm should
+be able to save single objects and all elements of an array to the database.
 
-In every case of an error or some unexpected stuff, return an status code of 400 (Bad Request)
+In every case of an error or some unexpected stuff, return a status code of 400 (Bad Request)
 
-make sure to parse the fields of the json object to java objects
+make sure to parse the fields of the JSON object to java objects
 
-if the show object is created, return a Response with status code 201 (Created) and an absolute uri path with the id, to find the show by its id
+if the show object is created, return a Response with status code 201 (Created) and an absolute uri path with the id, to
+find the show by its id
 
 ### Endpoint 2: Find Show by its id
 
@@ -161,18 +154,20 @@ use the appropriate http method (GET, POST, DELETE or PUT)
 
 make sure to add the missing Annotations
 
-use the `JsonObjectBuilder` to build a custom a json object with the `id` of the show, the `title` of the movie and the name of the `theater`
+use the `JsonObjectBuilder` to build a custom a json object with the `id` of the show, the `title` of the movie, and the
+name of the `theater`
 
 return status code 200 (ok)
 
+There are requests prepared to test your endpoints, the first two should work, the other should return a status code 400
 
+## Closing words
 
-There are requests prepared to test your endoints, the first two should work, the other should return a status code 400
+If you have completed this task - well done, respect! It took me more than 6 hours to think about the project, implement
+a correct solution and write this bad documentation (sorry about that).
 
-# Closing words
+If you have any further questions or discovered some mistakes made by me, feel free to get in touch with me!
 
-If you have completed this task - well done, respect! It took me like more than 5 hours to think about the project, implement a correct solution and write this bad documentation (sorry about that).
+## Correct Solution
 
-
-
-If you have any further question or discovered some mistakes of myself, feel free to get in touch with me!
+https://github.com/dorfingerjonas/movie-theater/
