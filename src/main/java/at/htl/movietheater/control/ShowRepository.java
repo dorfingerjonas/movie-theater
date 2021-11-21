@@ -17,11 +17,11 @@ public class ShowRepository {
 
     @Transactional
     public Show save(Show show) {
-        show = em.merge(show);
-
         if (show.getPrevShow() == null) {
             show.setPrevShow(findLastShow());
         }
+
+        show = em.merge(show);
 
         if (show.getPrevShow() != null) {
             show.getPrevShow().setNextShow(show);
