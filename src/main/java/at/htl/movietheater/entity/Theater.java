@@ -16,7 +16,7 @@ public class Theater {
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "TH_NAME")
+    @Column(name = "TH_NAME", unique = true)
     private String name;
 
     @Column(name = "TH_CAPACITY")
