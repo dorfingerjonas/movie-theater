@@ -154,7 +154,7 @@ use the appropriate http method (GET, POST, DELETE or PUT)
 
 make sure to add the missing Annotations
 
-use the `JsonObjectBuilder` to build a custom a json object with the `id` of the show, the `title` of the movie, and the
+use the `JsonObjectBuilder` to build a custom json object with the `id` of the show, the `title` of the movie, and the
 name of the `theater`
 
 return status code 200 (ok)
