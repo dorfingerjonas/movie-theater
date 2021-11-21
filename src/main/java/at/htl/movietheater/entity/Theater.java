@@ -1,11 +1,14 @@
 package at.htl.movietheater.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "MT_THEATER")
+@NamedQueries({
+        @NamedQuery(
+                name = "Theater.findByName",
+                query = "select t from MT_THEATER t where t.name like :name"
+        )
+})
 public class Theater {
 
     @Id
