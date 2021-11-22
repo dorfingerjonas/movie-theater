@@ -59,7 +59,7 @@ this one has already been done for you
 
 ### Theater
 
-- the table should be called `MT_MOVIE`
+- the table should be called `MT_THEATER`
 - generate an id
 - the required column names are shown in the ERD.
 - column name should be unique
